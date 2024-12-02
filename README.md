@@ -12,8 +12,8 @@ Plots of real(blue) vs. predicted(orange) joint positions are shown below.
 Red markers indicate the non-masked samples. More images are available
 in `model/UNET_1D-config-unet_1d/version_0/checkpoints/`.
 
-![Alt](model/UNET_1D-config-unet_1d/version_0/checkpoints/UNET_1D-config-unet_1d-epoch=18-train_loss=0.00661-sample-0-0.png)
 ![Alt](model/UNET_1D-config-unet_1d/version_0/checkpoints/UNET_1D-config-unet_1d-epoch=18-train_loss=0.00661-sample-1-0.png)
+![Alt](model/UNET_1D-config-unet_1d/version_0/checkpoints/UNET_1D-config-unet_1d-epoch=18-train_loss=0.00661-sample-2-0.png)
 
 ## Installation
 
