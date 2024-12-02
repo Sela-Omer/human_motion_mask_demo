@@ -2,3 +2,12 @@ data/**
 .idea/**
 __pycache__/**
 **__pycache__
+cache/
+*.ckpt
+*.ckpt.*
+*events.out.tfevents.*
+.idea
+.lr_find*
+*slurm*
+lightning_logs/**
+src/notebook/.ipynb_checkpoints

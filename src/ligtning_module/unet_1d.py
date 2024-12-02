@@ -9,10 +9,10 @@ class ConvBlock(nn.Module):
         self.block = nn.Sequential(
             nn.Conv1d(in_channels, out_channels, kernel_size=kernel_size, padding=padding),
             nn.ReLU(),
-            nn.BatchNorm1d(out_channels),
+            # nn.BatchNorm1d(out_channels),
             nn.Conv1d(out_channels, out_channels, kernel_size=kernel_size, padding=padding),
             nn.ReLU(),
-            nn.BatchNorm1d(out_channels)
+            # nn.BatchNorm1d(out_channels)
         )
 
     def forward(self, x):
@@ -73,7 +73,6 @@ class UNet1D(pl.LightningModule):
     def generic_step(self, batch, stage='train'):
         x_masked = torch.cat((batch['masked_poses'], batch['mask']), dim=-1)
         y = batch['poses']
-
         x_masked = x_masked.permute(0, 2, 1)  # (BATCH, N_FRAMES, JOINTS) -> (BATCH, JOINTS, N_FRAMES)
         y_pred = self(x_masked)
         y_pred = y_pred.permute(0, 2, 1)  # (BATCH, JOINTS, N_FRAMES) -> (BATCH, N_FRAMES, JOINTS)

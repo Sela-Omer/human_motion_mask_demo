@@ -4,6 +4,7 @@ import torch
 
 from src.config.config import config
 from src.helper.param_helper import convert_param_to_list
+from src.service.service_eval import ServiceEval
 from src.service.service_fit import ServiceFit
 
 
@@ -88,6 +89,7 @@ if __name__ == "__main__":
     # Create a dictionary of service objects
     service_dict = {
         "FIT": ServiceFit,
+        "EVAL": ServiceEval,
     }
     for app_mode in app_mode_lst:
         # Create the service object

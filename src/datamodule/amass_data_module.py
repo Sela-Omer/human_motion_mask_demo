@@ -9,7 +9,7 @@ from src.transform.mask_tfm import MaskTfm
 
 
 class AMASSDataModule(pl.LightningDataModule):
-    def __init__(self, train_dir, val_dir, test_dir, batch_size=32):
+    def __init__(self, service, train_dir, val_dir, test_dir, batch_size=32):
         """
         A PyTorch Lightning DataModule for the AMASS dataset.
 
@@ -20,11 +20,14 @@ class AMASSDataModule(pl.LightningDataModule):
             batch_size (int): Batch size for DataLoader.
         """
         super().__init__()
+        self.service = service
+        self.mask_temporal_window = int(self.service.config['DATA']['MASK_TEMPORAL_WINDOW'])
+        self.frames_per_sample = int(self.service.config['DATA']['FRAMES_PER_SAMPLE'])
         self.train_dir = train_dir
         self.val_dir = val_dir
         self.test_dir = test_dir
         self.batch_size = batch_size
-        self.collate_fn = FrameCollateFn()
+        self.collate_fn = FrameCollateFn(self.frames_per_sample)
 
     def get_amass_files(self, directory):
         """
@@ -50,9 +53,9 @@ class AMASSDataModule(pl.LightningDataModule):
         """
         Split the data and prepare datasets.
         """
-        self.train_dataset = AMASSDataset(self.train_files, tfms=[MaskTfm()])
-        self.val_dataset = AMASSDataset(self.val_files, tfms=[MaskTfm()])
-        self.test_dataset = AMASSDataset(self.test_files, tfms=[MaskTfm()])
+        self.train_dataset = AMASSDataset(self.train_files, tfms=[MaskTfm(self.mask_temporal_window)])
+        self.val_dataset = AMASSDataset(self.val_files, tfms=[MaskTfm(self.mask_temporal_window)])
+        self.test_dataset = AMASSDataset(self.test_files, tfms=[MaskTfm(self.mask_temporal_window)])
 
     def train_dataloader(self):
         return DataLoader(self.train_dataset, batch_size=self.batch_size, collate_fn=self.collate_fn, shuffle=True,

@@ -3,11 +3,9 @@ from typing import Callable
 import numpy as np
 import torch
 
-from old_c import MASK_TEMPORAL_WINDOW
-
 
 class MaskTfm(Callable):
-    def __init__(self, temporal_window=MASK_TEMPORAL_WINDOW, mask_prob=0.3):
+    def __init__(self, temporal_window, mask_prob=0.3):
         """
         A callable transform to mask pose data.
 
@@ -43,13 +41,14 @@ class MaskTfm(Callable):
 
         # Structured temporal masking
         for t in range(0, T, self.temporal_window):
-            if rng.random() < self.mask_prob:
-                # Randomly sample joints to mask
-                num_joints_to_mask = rng.integers(1, J + 1)
-                joints_to_mask = rng.choice(J, size=num_joints_to_mask, replace=False)
+            for j in range(J):
+                if rng.random() < self.mask_prob:
+                    # Randomly sample joints to mask
+                    # num_joints_to_mask = rng.integers(1, J + 1)
+                    # joints_to_mask = rng.choice(J, size=num_joints_to_mask, replace=False)
 
-                # Apply the same mask for the temporal window
-                mask[t:t + self.temporal_window, joints_to_mask] = 0
+                    # Apply the same mask for the temporal window
+                    mask[t:t + self.temporal_window, j] = 0
 
         # Expand mask to (x, y, z) coordinates
         expanded_mask = mask.unsqueeze(-1).repeat(1, 1, 3).view(T, num_features)

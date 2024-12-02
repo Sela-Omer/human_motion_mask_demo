@@ -28,7 +28,7 @@ class FitScript(Script, ABC):
             # Create the model checkpoint callback
             checkpoint_callback_lst.append(ModelCheckpoint(
                 monitor=metric_name,  # Metric to monitor
-                filename=self.service.model_name + '-{epoch:02d}-{' + metric_name + ':.2f}',
+                filename=self.service.model_name + '-{epoch:02d}-{' + metric_name + ':.5f}',
                 save_top_k=1,  # Save the top 3 checkpoints
                 mode='min',  # Maximize the monitored metric
             ))

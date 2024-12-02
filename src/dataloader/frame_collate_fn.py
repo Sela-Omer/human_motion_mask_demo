@@ -2,11 +2,9 @@ from typing import Callable, List
 
 import torch
 
-from old_c import FRAMES_PER_SAMPLE
-
 
 class FrameCollateFn(Callable):
-    def __init__(self, frames_per_sample=FRAMES_PER_SAMPLE):
+    def __init__(self, frames_per_sample):
         self.frames_per_sample = frames_per_sample
 
     def tensor_to_frame_lst(self, tensor):
