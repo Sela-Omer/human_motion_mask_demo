@@ -78,7 +78,7 @@ class UNet1D(pl.LightningModule):
         y_pred = self(x_masked)
         y_pred = y_pred.permute(0, 2, 1)  # (BATCH, JOINTS, N_FRAMES) -> (BATCH, N_FRAMES, JOINTS)
         loss = nn.MSELoss()(y_pred, y)  # Reconstruction loss
-        self.log(f"{stage}_loss", loss)
+        self.log(f"{stage}_loss", loss, batch_size=y.shape[0], prog_bar=True)
         return loss
 
     def configure_optimizers(self):

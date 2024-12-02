@@ -3,11 +3,11 @@ from typing import Callable
 import numpy as np
 import torch
 
-from config import mask_temporal_window
+from old_c import MASK_TEMPORAL_WINDOW
 
 
 class MaskTfm(Callable):
-    def __init__(self, temporal_window=mask_temporal_window, mask_prob=0.3):
+    def __init__(self, temporal_window=MASK_TEMPORAL_WINDOW, mask_prob=0.3):
         """
         A callable transform to mask pose data.
 
