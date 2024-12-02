@@ -8,7 +8,7 @@ The masking algorithm used is similar to the one used in MaskedMimic.
 ## Preliminary Results
 
 The following are the preliminary results of the project.
-Plots of real(blue) vs. predicted(orange) joint positions are shown below.
+Plots of real(blue) vs. predicted(orange) joint positions over time are shown below.
 Red markers indicate the non-masked samples. More images are available
 in `model/UNET_1D-config-unet_1d/version_0/checkpoints/`.
 
